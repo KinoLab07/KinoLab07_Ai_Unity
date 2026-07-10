@@ -1,0 +1,10 @@
+{
+  "name": "com.kinolab07.ai",
+  "displayName": "KinoLab07 AI",
+  "version": "0.1.0",
+  "unity": "6000.0",
+  "description": "Offline AI Assistant for Unity powered by Ollama.",
+  "author": {
+    "name": "KinoLab07"
+  }
+}
