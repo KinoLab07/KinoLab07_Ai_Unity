@@ -1,0 +1,20 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+
+# IDE
+.vscode/
+.idea/
+
+# Visual Studio
+*.csproj
+*.sln
+*.user
+
+# macOS
+.DS_Store
