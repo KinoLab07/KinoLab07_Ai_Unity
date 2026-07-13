@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace KinoLab07.AI.Agents.Programmer
 {
     public static class ProgrammerToolSelector
@@ -34,13 +36,19 @@ namespace KinoLab07.AI.Agents.Programmer
 
             if (p.Contains("buscar variable"))
                 return ProgrammerTool.SearchVariables;
-            
-            if (p.Contains("dónde se usa") ||
-               p.Contains("donde se usa") ||
-               p.Contains("referencias") ||
-               p.Contains("usos"))
-               return ProgrammerTool.ReferenceSearch;
-               
+
+            if (p.Contains("usa") ||
+                p.Contains("uso") ||
+                p.Contains("usos") ||
+                p.Contains("referencia") ||
+                p.Contains("referencias") ||
+                p.Contains("dónde se usa") ||
+                p.Contains("donde se usa"))
+            {
+                Debug.Log("ReferenceSearch detectado");
+                return ProgrammerTool.ReferenceSearch;
+            }
+
             return ProgrammerTool.None;
         }
     }

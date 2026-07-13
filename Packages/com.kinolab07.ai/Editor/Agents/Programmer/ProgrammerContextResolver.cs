@@ -1,4 +1,6 @@
 using System.Text;
+using UnityEditor;
+using UnityEngine;
 using KinoLab07.AI.Controllers;
 
 namespace KinoLab07.AI.Agents.Programmer
@@ -24,12 +26,34 @@ namespace KinoLab07.AI.Agents.Programmer
                     break;
 
                 case ProgrammerTool.ReadConsole:
-    sb.AppendLine("Lectura de consola disponible en una versión posterior.");
-    break;
+                    sb.AppendLine("Lectura de consola disponible en una versión posterior.");
+                    break;
 
                 case ProgrammerTool.ReadSelectedScript:
                     sb.AppendLine(ProjectController.GetScripts());
                     break;
+
+                case ProgrammerTool.ReferenceSearch:
+                {
+                    MonoScript script = SelectionController.GetSelectedScript();
+
+                    if (script == null)
+                    {
+                        sb.AppendLine("No hay un script seleccionado.");
+                        break;
+                    }
+
+                    var objects = ReferenceController.FindObjectsUsingScript(script);
+
+                    sb.AppendLine("===== REFERENCIAS =====");
+                    sb.AppendLine(script.name);
+                    sb.AppendLine();
+
+                    foreach (GameObject go in objects)
+                        sb.AppendLine("- " + go.name);
+
+                    break;
+                }
 
                 default:
                     sb.AppendLine(ProjectController.GetScripts());

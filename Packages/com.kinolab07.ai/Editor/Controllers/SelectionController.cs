@@ -35,18 +35,13 @@ namespace KinoLab07.AI.Controllers
         }
 
         public static MonoScript GetSelectedScript()
-        {
-            GameObject go = Selection.activeGameObject;
+{
+    Object obj = Selection.activeObject;
 
-            if (go == null)
-                return null;
+    if (obj is MonoScript script)
+        return script;
 
-            MonoBehaviour behaviour = go.GetComponent<MonoBehaviour>();
-
-            if (behaviour == null)
-                return null;
-
-            return MonoScript.FromMonoBehaviour(behaviour);
-        }
+    return null;
+}
     }
 }

@@ -26,6 +26,15 @@ namespace KinoLab07.AI.Agents.Programmer
             string smartContext =
                 ProgrammerContextResolver.Resolve(tool);
 
+            // Ejecutar herramientas locales
+            if (tool == ProgrammerTool.ReferenceSearch)
+            {
+                return new AIResponse
+                {
+                    Text = smartContext
+                };
+            }
+
             if (string.IsNullOrWhiteSpace(smartContext))
                 smartContext = context;
 
@@ -35,14 +44,10 @@ namespace KinoLab07.AI.Agents.Programmer
                     prompt,
                     smartContext);
 
-            Debug.Log("Prompt construido");
-
             AIResponse response =
                 await OllamaClient.Generate(
                     model,
                     finalPrompt);
-
-            Debug.Log("Respuesta recibida");
 
             return response;
         }
