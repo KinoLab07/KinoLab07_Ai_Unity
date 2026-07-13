@@ -5,6 +5,7 @@ using KinoLab07.AI.Services;
 using KinoLab07.AI.Unity;
 using KinoLab07.AI.Utilities;
 using KinoLab07.AI.Controllers;
+using KinoLab07.AI.Agents.Programmer;
 
 namespace KinoLab07.AI
 {
@@ -92,13 +93,15 @@ namespace KinoLab07.AI
 
             GUILayout.Label("Respuesta");
 
-            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(260));
+            scrollPosition = EditorGUILayout.BeginScrollView(
+                scrollPosition,
+                GUILayout.Height(260));
 
-response = EditorGUILayout.TextArea(
-    response,
-    GUILayout.ExpandHeight(true));
+            response = EditorGUILayout.TextArea(
+                response,
+                GUILayout.ExpandHeight(true));
 
-EditorGUILayout.EndScrollView();
+            EditorGUILayout.EndScrollView();
         }
 
         private async void AskOllama()
@@ -108,11 +111,10 @@ EditorGUILayout.EndScrollView();
 
             string contexto = ContextBuilder.Build();
 
-            AIResponse ai = await OllamaClient.Generate(
+            AIResponse ai = await ProgrammerAgent.Ask(
                 models[selectedModel],
-                contexto +
-                "\n\nPregunta:\n" +
-                prompt);
+                prompt,
+                contexto);
 
             response = ai.Text;
 
