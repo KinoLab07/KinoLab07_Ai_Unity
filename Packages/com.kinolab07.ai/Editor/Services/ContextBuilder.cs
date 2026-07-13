@@ -10,10 +10,23 @@ namespace KinoLab07.AI.Services
         {
             StringBuilder sb = new();
 
+            // Contexto general de Unity
             sb.AppendLine(UnityContext.GetCurrentContext());
-
             sb.AppendLine();
 
+            // Objeto seleccionado
+            sb.AppendLine(SelectionController.GetSelectionContext());
+            sb.AppendLine();
+
+            // Prefab del objeto seleccionado
+            sb.AppendLine(PrefabController.GetPrefabContext());
+            sb.AppendLine();
+
+            // Escena activa
+            sb.AppendLine(SceneController.GetSceneContext());
+            sb.AppendLine();
+
+            // Scripts del proyecto
             sb.AppendLine(ProjectController.GetScripts());
 
             return sb.ToString();
