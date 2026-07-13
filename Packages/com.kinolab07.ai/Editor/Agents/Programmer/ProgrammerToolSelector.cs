@@ -8,6 +8,19 @@ namespace KinoLab07.AI.Agents.Programmer
         {
             string p = prompt.ToLower();
 
+            // Herramientas de búsqueda (PRIORIDAD ALTA)
+            if (p.Contains("dónde se usa") ||
+                p.Contains("donde se usa") ||
+                p.Contains("referencia") ||
+                p.Contains("referencias") ||
+                p.Contains("usa") ||
+                p.Contains("uso") ||
+                p.Contains("usos"))
+            {
+                Debug.Log("ReferenceSearch detectado");
+                return ProgrammerTool.ReferenceSearch;
+            }
+
             if (p.Contains("script"))
                 return ProgrammerTool.ReadSelectedScript;
 
@@ -36,18 +49,6 @@ namespace KinoLab07.AI.Agents.Programmer
 
             if (p.Contains("buscar variable"))
                 return ProgrammerTool.SearchVariables;
-
-            if (p.Contains("usa") ||
-                p.Contains("uso") ||
-                p.Contains("usos") ||
-                p.Contains("referencia") ||
-                p.Contains("referencias") ||
-                p.Contains("dónde se usa") ||
-                p.Contains("donde se usa"))
-            {
-                Debug.Log("ReferenceSearch detectado");
-                return ProgrammerTool.ReferenceSearch;
-            }
 
             return ProgrammerTool.None;
         }
