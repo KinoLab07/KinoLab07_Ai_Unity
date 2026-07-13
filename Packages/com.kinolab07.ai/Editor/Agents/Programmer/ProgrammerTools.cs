@@ -2,6 +2,7 @@ namespace KinoLab07.AI.Agents.Programmer
 {
     public enum ProgrammerTool
     {
+        ReferenceSearch,
         None,
         SearchScripts,
         SearchClasses,

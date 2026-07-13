@@ -34,7 +34,13 @@ namespace KinoLab07.AI.Agents.Programmer
 
             if (p.Contains("buscar variable"))
                 return ProgrammerTool.SearchVariables;
-
+            
+            if (p.Contains("dónde se usa") ||
+               p.Contains("donde se usa") ||
+               p.Contains("referencias") ||
+               p.Contains("usos"))
+               return ProgrammerTool.ReferenceSearch;
+               
             return ProgrammerTool.None;
         }
     }
