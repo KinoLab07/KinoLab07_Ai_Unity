@@ -1,36 +1,47 @@
 # KinoLab07 AI
 
-**Asistente de Inteligencia Artificial para Unity 6 usando Ollama y
-modelos LLM locales.**
+**Asistente de Inteligencia Artificial para Unity 6 utilizando Ollama y modelos LLM ejecutados localmente.**
 
-KinoLab07 AI integra modelos locales de IA ejecutándose con Ollama
-directamente dentro del Editor de Unity para generar código, modificar
-scripts, analizar errores de la consola y asistir el desarrollo de
-videojuegos, aplicaciones XR y experiencias de Realidad Virtual y Mixta.
+KinoLab07 AI es un copiloto de desarrollo para Unity que integra modelos locales mediante Ollama directamente en el Editor. Su objetivo es asistir al desarrollador comprendiendo el contexto del proyecto y ejecutando herramientas tanto mediante IA como directamente sobre la API de Unity.
 
-------------------------------------------------------------------------
+---
 
-# Características actuales (v0.1.0)
+# Características actuales (v0.5)
 
--   Chat con modelos locales de Ollama.
--   Selector automático de modelos instalados.
--   Lectura del GameObject seleccionado.
--   Lectura automática del script seleccionado.
--   Generación automática de scripts C#.
--   Modificación de scripts existentes.
--   Análisis básico de la consola de Unity.
+## IA
 
-------------------------------------------------------------------------
+- Chat con modelos locales mediante Ollama.
+- Selector automático de modelos instalados.
+- Creación automática de scripts C#.
+- Modificación automática de scripts.
+- Análisis básico de la consola de Unity.
+
+## Contexto inteligente
+
+- Lectura del GameObject seleccionado.
+- Lectura del script seleccionado.
+- Lectura de la escena activa.
+- Lectura de prefabs.
+- Indexación automática de scripts del proyecto.
+
+## Herramientas locales
+
+- Arquitectura LocalToolExecutor.
+- ReferenceSearch.
+- Búsqueda de referencias desde un script seleccionado en el Project.
+- Búsqueda de referencias desde un GameObject seleccionado en la Hierarchy.
+
+---
 
 # Requisitos
 
--   Unity 6.x
--   Ollama
--   Git (opcional, recomendado)
--   macOS (probado)
--   Windows (pendiente de pruebas)
+- Unity 6.x
+- Ollama
+- Git (opcional)
+- macOS (probado)
+- Windows (pendiente de pruebas)
 
-------------------------------------------------------------------------
+---
 
 # Instalación
 
@@ -40,19 +51,19 @@ https://ollama.com/download
 
 ## 2. Descargar un modelo
 
-``` bash
+```bash
 ollama pull gpt-oss:20b
 ```
 
 o
 
-``` bash
+```bash
 ollama pull qwen3.6
 ```
 
 Verificar:
 
-``` bash
+```bash
 ollama list
 ```
 
@@ -60,7 +71,9 @@ ollama list
 
 Copiar la carpeta:
 
-    Packages/com.kinolab07.ai
+```
+Packages/com.kinolab07.ai
+```
 
 dentro del proyecto Unity.
 
@@ -70,65 +83,109 @@ Unity recompilará automáticamente.
 
 ## 5. Abrir el plugin
 
-    KinoLab07 AI
-        → Open
+```
+KinoLab07 AI
+    → Open
+```
 
-------------------------------------------------------------------------
+---
 
 # Primera prueba
 
-Escribir:
+Selecciona un GameObject y escribe:
 
-    Crea un script que haga girar un cubo.
+```
+¿Qué componentes tiene seleccionado?
+```
 
-Pulsar:
+o selecciona un script y escribe:
 
-    Crear Script con IA
+```
+¿Dónde se usa este script?
+```
 
-------------------------------------------------------------------------
+---
 
-# Estructura
+# Arquitectura
 
-    com.kinolab07.ai
-    │
-    ├── Documentation
-    ├── Editor
-    │   ├── Controllers
-    │   ├── Models
-    │   ├── Services
-    │   ├── Unity
-    │   ├── Utilities
-    │   └── Windows
-    ├── Runtime
-    └── Tests
+```
+com.kinolab07.ai
+│
+├── Documentation
+├── Editor
+│   ├── Agents
+│   │   ├── Programmer
+│   │   └── LocalTools
+│   ├── Context
+│   ├── Controllers
+│   ├── Models
+│   ├── Services
+│   ├── Settings
+│   ├── UI
+│   ├── Unity
+│   ├── Utilities
+│   └── Windows
+├── Runtime
+└── Tests
+```
 
-------------------------------------------------------------------------
+---
+
+# Arquitectura de ejecución
+
+```
+Usuario
+        │
+        ▼
+ProgrammerAgent
+        │
+        ├───────────────┐
+        │               │
+        ▼               ▼
+LocalToolExecutor     Ollama
+        │
+        ▼
+Controllers
+        │
+        ▼
+Unity API
+```
+
+Las herramientas locales se ejecutan directamente sobre Unity sin utilizar el modelo de lenguaje.
+
+---
 
 # Roadmap
 
-## v0.2
+## v0.6
 
--   Vista previa antes de aplicar cambios.
--   Historial de conversación.
--   Memoria del proyecto.
+- ReferenceSearch para Prefabs.
+- ReferenceSearch para Escenas.
+- ReferenceSearch para Métodos.
+- ReferenceSearch para Clases.
 
-## v0.3
+## v0.7
 
--   Corrección automática de errores.
--   Agente de consola.
+- Creación automática de GameObjects.
+- Creación automática de Componentes.
+- Modificación automática de escenas.
+- Creación de materiales.
 
-## v0.4
+## v0.8
 
--   Agente de escena.
--   Agente de prefabs.
+- SceneAgent.
+- XRHelperAgent.
+- DebugAgent.
+- OptimizationAgent.
 
 ## v1.0
 
--   Instalación mediante UPM.
--   Documentación completa.
--   Publicación oficial.
+- Instalación mediante UPM.
+- Publicación oficial.
+- Documentación completa.
+- API pública para herramientas.
 
-------------------------------------------------------------------------
+---
 
 # Licencia
 
