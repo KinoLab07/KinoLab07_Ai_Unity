@@ -12,6 +12,7 @@ namespace KinoLab07.AI
     {
         private string prompt = "";
         private string response = "";
+        private Vector2 scrollPosition;
 
         private string[] models = { "gpt-oss:20b" };
         private int selectedModel = 0;
@@ -60,9 +61,7 @@ namespace KinoLab07.AI
             selectedModel = EditorGUILayout.Popup(selectedModel, models);
 
             if (GUILayout.Button("Actualizar", GUILayout.Width(90)))
-            {
                 _ = RefreshModels();
-            }
 
             GUILayout.EndHorizontal();
 
@@ -86,11 +85,20 @@ namespace KinoLab07.AI
             if (GUILayout.Button("🔴 Analizar Consola"))
                 AnalyzeConsole();
 
+            if (GUILayout.Button("📂 Indexar Scripts"))
+                IndexScripts();
+
             GUILayout.Space(10);
 
             GUILayout.Label("Respuesta");
 
-            response = EditorGUILayout.TextArea(response, GUILayout.Height(260));
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(260));
+
+response = EditorGUILayout.TextArea(
+    response,
+    GUILayout.ExpandHeight(true));
+
+EditorGUILayout.EndScrollView();
         }
 
         private async void AskOllama()
@@ -98,9 +106,11 @@ namespace KinoLab07.AI
             response = "Consultando...";
             Repaint();
 
+            string contexto = ContextBuilder.Build();
+
             AIResponse ai = await OllamaClient.Generate(
                 models[selectedModel],
-                UnityContext.GetCurrentContext() +
+                contexto +
                 "\n\nPregunta:\n" +
                 prompt);
 
@@ -160,12 +170,17 @@ Cambios:
             response = "Analizando consola...";
             Repaint();
 
-            AIResponse ai =
-                await ScriptController.AnalyzeConsole(
-                    models[selectedModel]);
+            AIResponse ai = await ScriptController.AnalyzeConsole(
+                models[selectedModel]);
 
             response = ai.Text;
 
+            Repaint();
+        }
+
+        private void IndexScripts()
+        {
+            response = ProjectController.GetScripts();
             Repaint();
         }
     }
