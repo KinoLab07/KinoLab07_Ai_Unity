@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using KinoLab07.AI.Models;
 using KinoLab07.AI.Services;
+using KinoLab07.AI.Agents.Programmer.LocalTools;
 
 namespace KinoLab07.AI.Agents.Programmer
 {
@@ -23,17 +24,11 @@ namespace KinoLab07.AI.Agents.Programmer
             Debug.Log("Acción: " + action);
             Debug.Log("Herramienta: " + tool);
 
+            if (LocalToolExecutor.CanExecute(tool))
+                return LocalToolExecutor.Execute(tool);
+
             string smartContext =
                 ProgrammerContextResolver.Resolve(tool);
-
-            // Ejecutar herramientas locales
-            if (tool == ProgrammerTool.ReferenceSearch)
-            {
-                return new AIResponse
-                {
-                    Text = smartContext
-                };
-            }
 
             if (string.IsNullOrWhiteSpace(smartContext))
                 smartContext = context;
@@ -44,12 +39,9 @@ namespace KinoLab07.AI.Agents.Programmer
                     prompt,
                     smartContext);
 
-            AIResponse response =
-                await OllamaClient.Generate(
-                    model,
-                    finalPrompt);
-
-            return response;
+            return await OllamaClient.Generate(
+                model,
+                finalPrompt);
         }
     }
 }
