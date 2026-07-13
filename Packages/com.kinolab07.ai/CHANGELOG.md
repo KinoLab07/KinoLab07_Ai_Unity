@@ -2,6 +2,7 @@
 
 Todas las versiones importantes de KinoLab07 AI se registrarán aquí.
 
+
 ## v0.1.0
 
 ### Añadido
@@ -39,3 +40,12 @@ Primera versión funcional del plugin.
 
 -   Agente de escena.
 -   Agente de prefabs.
+
+## v0.5
+
+### Added
+- LocalToolExecutor.
+- Primera arquitectura para herramientas locales.
+- ReferenceSearch.
+- Búsqueda de referencias desde un script seleccionado en Project.
+- Búsqueda de referencias desde un GameObject seleccionado en Hierarchy.
