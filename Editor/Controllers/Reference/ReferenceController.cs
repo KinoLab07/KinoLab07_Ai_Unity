@@ -17,10 +17,14 @@ namespace KinoLab07.AI.Controllers
         return sb.ToString();
     }
 
-    List<GameObject> objects = FindObjectsUsingScript(script);
+    List<GameObject> objects =
+        FindObjectsUsingScript(script);
 
     List<string> prefabs =
         Reference.PrefabReferenceController.FindPrefabsUsingScript(script);
+
+    List<string> scenes =
+        Reference.SceneReferenceController.FindScenesUsingScript(script.name);
 
     sb.AppendLine("===== REFERENCIAS =====");
     sb.AppendLine($"Script: {script.name}");
@@ -51,7 +55,21 @@ namespace KinoLab07.AI.Controllers
             sb.AppendLine($"- {prefab}");
     }
 
+    sb.AppendLine();
+    sb.AppendLine("Escenas:");
+
+    if (scenes.Count == 0)
+    {
+        sb.AppendLine("- Ninguna");
+    }
+    else
+    {
+        foreach (string scene in scenes)
+            sb.AppendLine($"- {scene}");
+    }
+
     return sb.ToString();
+}
 }
         public static List<GameObject> FindObjectsUsingScript(MonoScript script)
         {
