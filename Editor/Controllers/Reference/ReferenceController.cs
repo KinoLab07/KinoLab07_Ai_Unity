@@ -8,35 +8,51 @@ namespace KinoLab07.AI.Controllers
     public static class ReferenceController
     {
         public static string GetReferenceContext(MonoScript script)
-        {
-            StringBuilder sb = new();
+{
+    StringBuilder sb = new();
 
-            if (script == null)
-            {
-                sb.AppendLine("No hay un script seleccionado.");
-                return sb.ToString();
-            }
+    if (script == null)
+    {
+        sb.AppendLine("No hay un script seleccionado.");
+        return sb.ToString();
+    }
 
-            List<GameObject> objects = FindObjectsUsingScript(script);
+    List<GameObject> objects = FindObjectsUsingScript(script);
 
-            sb.AppendLine("===== REFERENCIAS =====");
-            sb.AppendLine($"Script: {script.name}");
-            sb.AppendLine();
+    List<string> prefabs =
+        Reference.PrefabReferenceController.FindPrefabsUsingScript(script);
 
-            if (objects.Count == 0)
-            {
-                sb.AppendLine("No se encontraron GameObjects usando este script.");
-                return sb.ToString();
-            }
+    sb.AppendLine("===== REFERENCIAS =====");
+    sb.AppendLine($"Script: {script.name}");
+    sb.AppendLine();
 
-            sb.AppendLine("GameObjects:");
+    sb.AppendLine("GameObjects:");
 
-            foreach (GameObject go in objects)
-                sb.AppendLine($"- {go.name}");
+    if (objects.Count == 0)
+    {
+        sb.AppendLine("- Ninguno");
+    }
+    else
+    {
+        foreach (GameObject go in objects)
+            sb.AppendLine($"- {go.name}");
+    }
 
-            return sb.ToString();
-        }
+    sb.AppendLine();
+    sb.AppendLine("Prefabs:");
 
+    if (prefabs.Count == 0)
+    {
+        sb.AppendLine("- Ninguno");
+    }
+    else
+    {
+        foreach (string prefab in prefabs)
+            sb.AppendLine($"- {prefab}");
+    }
+
+    return sb.ToString();
+}
         public static List<GameObject> FindObjectsUsingScript(MonoScript script)
         {
             List<GameObject> results = new();
