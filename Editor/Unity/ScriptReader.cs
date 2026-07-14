@@ -1,4 +1,5 @@
 using System.IO;
+using System.Text;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace KinoLab07.AI.Unity
             if (go == null)
                 return "";
 
-            string result = "";
+            StringBuilder sb = new();
 
             MonoBehaviour[] scripts = go.GetComponents<MonoBehaviour>();
 
@@ -22,21 +23,43 @@ namespace KinoLab07.AI.Unity
 
                 MonoScript mono = MonoScript.FromMonoBehaviour(script);
 
-                string path = AssetDatabase.GetAssetPath(mono);
-
-                result += "\n========================================\n";
-                result += mono.name + "\n";
-                result += path + "\n";
-                result += "========================================\n\n";
-
-                if (File.Exists(path))
-                {
-                    result += File.ReadAllText(path);
-                    result += "\n\n";
-                }
+                AppendScript(sb, mono);
             }
 
-            return result;
+            return sb.ToString();
+        }
+
+        public static string GetSelectedScript()
+{
+    MonoScript script = SelectedScript.Get();
+
+    if (script == null)
+        return "";
+
+    StringBuilder sb = new();
+
+    AppendScript(sb, script);
+
+    return sb.ToString();
+}
+
+        private static void AppendScript(
+            StringBuilder sb,
+            MonoScript script)
+        {
+            string path = AssetDatabase.GetAssetPath(script);
+
+            sb.AppendLine("========================================");
+            sb.AppendLine(script.name);
+            sb.AppendLine(path);
+            sb.AppendLine("========================================");
+            sb.AppendLine();
+
+            if (File.Exists(path))
+            {
+                sb.AppendLine(File.ReadAllText(path));
+                sb.AppendLine();
+            }
         }
     }
 }

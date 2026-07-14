@@ -17,8 +17,12 @@ namespace KinoLab07.AI.Agents.Programmer
                 return ProgrammerAction.ModifyScript;
 
             if (p.Contains("explica") ||
+                p.Contains("explicar") ||
+                p.Contains("qué hace") ||
+                p.Contains("que hace") ||
                 p.Contains("cómo funciona") ||
-                p.Contains("como funciona"))
+                p.Contains("como funciona") ||
+                p.Contains("resume"))
                 return ProgrammerAction.ExplainCode;
 
             if (p.Contains("error") ||

@@ -27,11 +27,13 @@ namespace KinoLab07.AI.Agents.Programmer
             if (LocalToolExecutor.CanExecute(tool))
                 return LocalToolExecutor.Execute(tool);
 
-            string smartContext =
-                ProgrammerContextResolver.Resolve(tool);
+            string smartContext = ProgrammerContextResolver.Resolve(tool);
 
-            if (string.IsNullOrWhiteSpace(smartContext))
-                smartContext = context;
+if (string.IsNullOrWhiteSpace(smartContext) &&
+    !string.IsNullOrWhiteSpace(context))
+{
+    smartContext = context;
+}
 
             string finalPrompt =
                 ProgrammerPromptBuilder.Build(

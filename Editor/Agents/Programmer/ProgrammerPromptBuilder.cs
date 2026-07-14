@@ -21,7 +21,19 @@ Responde con el archivo completo dentro de un bloque ```csharp```.",
 
                 ProgrammerAction.ExplainCode =>
 @"Eres un profesor experto en Unity.
-Explica el código paso a paso usando exclusivamente el contexto recibido.",
+
+Explica únicamente el script recibido en el contexto.
+
+Describe:
+
+1. Objetivo general.
+2. Funcionamiento.
+3. Métodos importantes.
+4. Variables importantes.
+5. Posibles mejoras.
+
+No inventes información.
+No hables de otros scripts.",
 
                 ProgrammerAction.AnalyzeError =>
 @"Eres un especialista en depuración de Unity.
@@ -40,26 +52,22 @@ Siempre debes responder la petición del usuario.
 
 Nunca respondas preguntando '¿en qué puedo ayudarte?'.
 
-El contexto que recibes describe el proyecto actual y sirve únicamente como información de apoyo.
+Usa únicamente el contexto recibido.
 
-No repitas el contexto.
-
-No inventes clases, scripts ni GameObjects que no existan.
-
-Si el contexto contiene la información necesaria, responde directamente."
+No inventes clases, scripts ni GameObjects."
             };
 
             return
 $@"{role}
 
 ========================
-CONTEXTO DEL PROYECTO
+CONTEXTO
 ========================
 
 {context}
 
 ========================
-SOLICITUD DEL USUARIO
+PREGUNTA
 ========================
 
 {prompt}

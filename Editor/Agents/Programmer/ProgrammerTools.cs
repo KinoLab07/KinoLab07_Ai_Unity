@@ -2,16 +2,33 @@ namespace KinoLab07.AI.Agents.Programmer
 {
     public enum ProgrammerTool
     {
-        ReferenceSearch,
         None,
+
+        // Herramientas locales
+        ReferenceSearch,
+        ShowSelectedScript,
+        CopySelectedScript,
+        OpenSelectedScript,
+
+CreateCube,
+CreateSphere,
+CreateCapsule,
+CreatePlane,
+CreateEmptyGameObject,
+
+ReadSelectedScript,
+        ReadSelection,
+        ReadScene,
+        ReadPrefab,
+        ReadConsole,
+
+        // Búsquedas
         SearchScripts,
         SearchClasses,
         SearchMethods,
         SearchVariables,
-        ReadSelectedScript,
-        ReadConsole,
-        ReadScene,
-        ReadSelection,
-        ReadPrefab
+
+        // IA
+        ExplainScript
     }
 }

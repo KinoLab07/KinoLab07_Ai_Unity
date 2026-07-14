@@ -1,7 +1,7 @@
 using System.Text;
 using UnityEditor;
-using UnityEngine;
 using KinoLab07.AI.Controllers;
+using KinoLab07.AI.Unity;
 
 namespace KinoLab07.AI.Agents.Programmer
 {
@@ -13,6 +13,10 @@ namespace KinoLab07.AI.Agents.Programmer
 
             switch (tool)
             {
+                case ProgrammerTool.ExplainScript:
+                    sb.AppendLine(ScriptReader.GetSelectedScript());
+                    break;
+
                 case ProgrammerTool.ReadSelection:
                     sb.AppendLine(SelectionController.GetSelectionContext());
                     break;
@@ -36,22 +40,7 @@ namespace KinoLab07.AI.Agents.Programmer
                 case ProgrammerTool.ReferenceSearch:
                 {
                     MonoScript script = SelectionController.GetSelectedScript();
-
-                    if (script == null)
-                    {
-                        sb.AppendLine("No hay un script seleccionado.");
-                        break;
-                    }
-
-                    var objects = ReferenceController.FindObjectsUsingScript(script);
-
-                    sb.AppendLine("===== REFERENCIAS =====");
-                    sb.AppendLine(script.name);
-                    sb.AppendLine();
-
-                    foreach (GameObject go in objects)
-                        sb.AppendLine("- " + go.name);
-
+                    sb.AppendLine(ReferenceController.GetReferenceContext(script));
                     break;
                 }
 

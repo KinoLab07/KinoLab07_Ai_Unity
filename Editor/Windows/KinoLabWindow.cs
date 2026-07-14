@@ -109,12 +109,10 @@ namespace KinoLab07.AI
             response = "Consultando...";
             Repaint();
 
-            string contexto = ContextBuilder.Build();
-
             AIResponse ai = await ProgrammerAgent.Ask(
-                models[selectedModel],
-                prompt,
-                contexto);
+    models[selectedModel],
+    prompt,
+    "");
 
             response = ai.Text;
 
