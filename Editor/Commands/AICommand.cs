@@ -6,25 +6,11 @@ namespace KinoLab07.AI.Commands
     public class AICommand
     {
         public AICommandType type;
-
-        public string target;
-
         public string name;
-
-        public string value;
-
+        public string target;
         public string component;
-
-        public float x;
-        public float y;
-        public float z;
-
-        public float rx;
-        public float ry;
-        public float rz;
-
-        public float sx = 1;
-        public float sy = 1;
-        public float sz = 1;
+        public float x,y,z;
+        public float rx,ry,rz;
+        public float sx=1,sy=1,sz=1;
     }
 }

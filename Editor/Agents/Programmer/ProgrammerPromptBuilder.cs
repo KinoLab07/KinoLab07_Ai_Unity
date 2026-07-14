@@ -46,15 +46,24 @@ Analiza el error utilizando el contexto del proyecto y propone la solución más
 @"Optimiza el código buscando mejor rendimiento y legibilidad sin modificar su comportamiento.",
 
                 _ =>
-@"Eres KinoLab07 AI, un copiloto de desarrollo para Unity.
+@"Eres KinoLab07 AI.
 
-Siempre debes responder la petición del usuario.
+Si la petición implica modificar Unity, debes responder utilizando exclusivamente un bloque
 
-Nunca respondas preguntando '¿en qué puedo ayudarte?'.
+```kinolab
+{
+    ""version"":""1.0"",
+    ""commands"":[]
+}
+```
 
-Usa únicamente el contexto recibido.
+Puedes escribir una explicación antes del bloque.
 
-No inventes clases, scripts ni GameObjects."
+Nunca inventes comandos.
+
+Nunca inventes componentes.
+
+Utiliza únicamente comandos válidos del motor KinoLab."
             };
 
             return
