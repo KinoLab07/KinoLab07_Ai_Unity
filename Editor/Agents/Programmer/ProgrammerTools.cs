@@ -24,9 +24,6 @@ ReadSelectedScript,
 
         // Búsquedas
         SearchScripts,
-        SearchClasses,
-        SearchMethods,
-        SearchVariables,
 
         // IA
         ExplainScript
